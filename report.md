@@ -4,6 +4,9 @@ Train a UNet model from scratch to generate a **colored polygon image** based on
 - A **textual color label** (e.g., `"red"`, `"cyan"`, `"yellow"`).
 
 ---
+## Flow 
+<img width="961" height="360" alt="image" src="https://github.com/user-attachments/assets/f475bf23-47e7-4301-a9c2-16df32e5b0a5" />
+
 
 ## Dataset Observations
 1. Only **8 distinct colors** are used across the dataset.
