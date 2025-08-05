@@ -49,6 +49,6 @@ Train a UNet model from scratch to generate a **colored polygon image** based on
 ## References
 
 - **UNet PyTorch Implementation**: [github.com/kgkgzrtk/cUNet-Pytorch](https://github.com/kgkgzrtk/cUNet-Pytorch)
-- **Papers:** - [Conditional UNet for Image Colorization (CS231n, 2022)](https://cs231n.stanford.edu/reports/2022/pdfs/109.pdf), [Original UNet Paper (Ronneberger et al., 2015)](https://arxiv.org/abs/1603.08511)
+- **Papers:** - [Let there be color](https://cs231n.stanford.edu/reports/2022/pdfs/109.pdf), [Colorful Image Colorization (ECCV '16)](https://arxiv.org/abs/1603.08511)
 
 
