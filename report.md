@@ -5,7 +5,8 @@ Train a UNet model from scratch to generate a **colored polygon image** based on
 
 ---
 ## Flow 
-<img width="961" height="360" alt="image" src="https://github.com/user-attachments/assets/f475bf23-47e7-4301-a9c2-16df32e5b0a5" />
+<img width="963" height="386" alt="image" src="https://github.com/user-attachments/assets/ff925d74-10f2-4bbf-bb6c-2061e8d66654" />
+
 
 
 ## Dataset Observations
@@ -17,7 +18,7 @@ Train a UNet model from scratch to generate a **colored polygon image** based on
 
 ### Framing the Problem
 - Chose a **grayscale-to-RGB** approach over **L-to-AB**.
-  - L-to-AB retains black borders in the L channel, requiring extra processing.
+  - L-to-AB retains black borders in the L channel, requiring extra processing (to remove black border, one will have to flip balck pixels with white during post processing)
   - Grayscale-to-RGB allows simpler manipulation.
 - I briefly experimented with L-AB, but postponed further exploration due to time constraints.
 
@@ -30,7 +31,8 @@ Train a UNet model from scratch to generate a **colored polygon image** based on
 
 - Initially used **MSELoss**, but observed **slow convergence**.
 - Switched to **Binary Cross-Entropy (BCE) Loss**, treating the task as a **per-pixel classification problem**. BCE converged faster and gave **better visual results**.
-- A consistent issue was a **grayish halo/dullness** in outputs. Most target colors have **at least one channel with high values** (normalized = 1).  To resolve this, used a **weighted BCE loss** that penalizes predictions in the range **(0.96, 1)**.This encourages the model to predict **exact color values** (i.e., 1.0) rather than near-whites.
+- A consistent issue was a **grayish halo/dullness** in outputs. Most target colors have **at least one channel with high values** (normalized = 1). So, encouraging model with near 1 preds should improve overall output quality.
+- Used a **weighted BCE loss** (`=bce_per_pixel * white_mask + 1.2 * bce_per_pixel * normal_mask`) - to focus on foreground non white pixels. Similar formulation  giving higher weight to near white pixels reduced halo and dullness but color consistency suffered (class imbalance, model was biased to predicted higher 1's due to large no of white pixels). Will revisit this variant.
 - For fair comparison all models were trained for **500 epochs** using the same hyperparameters: `Adam` optimizer, learning rate `1e-4`, `cosine annealing` scheduler, and `early stopping` with `patience = 20`.
 
 
